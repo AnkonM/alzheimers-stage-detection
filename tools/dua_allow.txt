@@ -1,0 +1,3 @@
+# Files exempt from the export scan, with the reason.
+# Synthetic fixture IDs (not real subjects) that the scanner's own unit test needs verbatim.
+tests/test_dua_scan.py

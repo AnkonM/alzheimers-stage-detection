@@ -1,0 +1,5 @@
+,pred_CN,pred_EMCI,pred_LMCI,pred_AD
+true_CN,121,12,0,0
+true_EMCI,3,168,46,0
+true_LMCI,0,42,57,15
+true_AD,0,2,11,92

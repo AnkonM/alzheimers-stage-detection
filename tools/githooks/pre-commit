@@ -1,0 +1,7 @@
+#!/bin/sh
+# Versioned pre-commit hook. Enable once per clone:  git config core.hooksPath tools/githooks
+# Blocks commits that stage OASIS images, subject IDs, case-id tables or unmarked result files.
+# Local hooks can be skipped with --no-verify; the CI workflow (.github/workflows/oasis_guard.yml)
+# is the backstop. Standard-library Python only.
+root="$(git rev-parse --show-toplevel)" || exit 2
+exec python3 "$root/tools/oasis_guard.py" --staged --repo "$root"

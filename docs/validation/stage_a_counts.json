@@ -1,0 +1,402 @@
+{
+  "_notice": "OASIS_RESULTS_MARKER: Data were provided by OASIS-1: Cross-Sectional: Principal Investigators: D. Marcus, R. Buckner, J. Csernansky, J. Morris; P50 AG05681, P01 AG03991, P01 AG026276, R01 AG021910, P20 MH071616, U24 RR021382. Citation: Marcus et al., J Cogn Neurosci 2007;19(9):1498-1507, https://doi.org/10.1162/jocn.2007.19.9.1498",
+  "archive_members": 19793,
+  "archives": 12,
+  "cohort": {
+    "by_cdr": {
+      "0": 98,
+      "0.5": 70,
+      "1": 28,
+      "2": 2
+    },
+    "educ_or_ses_missing": 18,
+    "first_scan_is_mpr1": 198,
+    "mmse_missing": 0,
+    "n": 198
+  },
+  "exclusions": {
+    "cohort": 198,
+    "excluded_age_missing": 0,
+    "excluded_age_under_60": 218,
+    "excluded_cdr_missing": 0,
+    "excluded_no_raw_scan": 0,
+    "excluded_not_first_session": 20,
+    "excluded_sex_missing": 0,
+    "first_scan_is_not_mpr1": 0,
+    "sessions": 436
+  },
+  "gate_a": [
+    {
+      "check": "sessions in the archives = 436",
+      "pass": true
+    },
+    {
+      "check": "distinct subjects = 416",
+      "pass": true
+    },
+    {
+      "check": "retest (MR2) sessions = 20",
+      "pass": true
+    },
+    {
+      "check": "every MR2 session is under age 60 (excluded by the age rule)",
+      "pass": true
+    },
+    {
+      "check": "cohort by CDR = 98/70/28/2",
+      "pass": true
+    },
+    {
+      "check": "every cohort case has a raw scan, age and sex",
+      "pass": true
+    },
+    {
+      "check": "every session that meets the age and CDR rule has a raw scan and a sex",
+      "pass": true
+    },
+    {
+      "check": "no duplicate case ids",
+      "pass": true
+    },
+    {
+      "check": "no duplicate sessions in the cohort",
+      "pass": true
+    },
+    {
+      "check": "every session text file has an index entry",
+      "pass": true
+    },
+    {
+      "check": "second code path (awk) reproduces n, age mean/SD, MMSE mean/n, sex by CDR group and the session counts",
+      "pass": true
+    }
+  ],
+  "manifest_sha256": {
+    "inputs.csv": "1dc4f56c4b380884eefc8f5662f63bede9fe45da74185a3ad908be6fd8ddb874",
+    "labels.csv": "b78d1258d72e30e9d112ad845ae6b1e422bc4ae0990eaadac247a5d860252196"
+  },
+  "raw_headers_vs_documentation": {
+    "disagreeing_scans_by_property": {},
+    "headers_declaring_4_dimensions_with_a_trailing_1": 1688,
+    "raw_scans": 1688,
+    "sessions_by_scan_count": {
+      "3": 59,
+      "4": 375,
+      "5": 1,
+      "6": 1
+    },
+    "sessions_with_a_disagreeing_scan": 0
+  },
+  "retest_max_age": 34,
+  "retest_sessions": 20,
+  "s4_age_tertiles": {
+    "edges": [
+      71.0,
+      80.0
+    ],
+    "group_sizes_cdr0": [
+      35,
+      31,
+      32
+    ],
+    "method": "numpy.quantile inverted_cdf on cohort CDR 0 ages; groups: age <= e1, e1 < age <= e2, age > e2",
+    "n_cdr0": 98
+  },
+  "sessions": 436,
+  "stage": "A",
+  "subjects": 416,
+  "table2_decades": {
+    "60s": {
+      "agree": true,
+      "demented": {
+        "cdr_0.5_1_2": [
+          12,
+          3,
+          0
+        ],
+        "mean": 66.13,
+        "n": 15
+      },
+      "nondemented": {
+        "mean": 64.88,
+        "n": 25
+      },
+      "paper": {
+        "demented": {
+          "cdr_0.5_1_2": [
+            12,
+            3,
+            0
+          ],
+          "mean": 66.13,
+          "n": 15
+        },
+        "nondemented": {
+          "mean": 64.88,
+          "n": 25
+        }
+      }
+    },
+    "70s": {
+      "agree": true,
+      "demented": {
+        "cdr_0.5_1_2": [
+          32,
+          15,
+          1
+        ],
+        "mean": 74.42,
+        "n": 48
+      },
+      "nondemented": {
+        "mean": 73.37,
+        "n": 35
+      },
+      "paper": {
+        "demented": {
+          "cdr_0.5_1_2": [
+            32,
+            15,
+            1
+          ],
+          "mean": 74.42,
+          "n": 48
+        },
+        "nondemented": {
+          "mean": 73.37,
+          "n": 35
+        }
+      }
+    },
+    "80s": {
+      "agree": true,
+      "demented": {
+        "cdr_0.5_1_2": [
+          22,
+          9,
+          1
+        ],
+        "mean": 82.88,
+        "n": 32
+      },
+      "nondemented": {
+        "mean": 84.07,
+        "n": 30
+      },
+      "paper": {
+        "demented": {
+          "cdr_0.5_1_2": [
+            22,
+            9,
+            1
+          ],
+          "mean": 82.88,
+          "n": 32
+        },
+        "nondemented": {
+          "mean": 84.07,
+          "n": 30
+        }
+      }
+    },
+    "90+": {
+      "agree": true,
+      "demented": {
+        "cdr_0.5_1_2": [
+          4,
+          1,
+          0
+        ],
+        "mean": 92,
+        "n": 5
+      },
+      "nondemented": {
+        "mean": 91,
+        "n": 8
+      },
+      "paper": {
+        "demented": {
+          "cdr_0.5_1_2": [
+            4,
+            1,
+            0
+          ],
+          "mean": 92.0,
+          "n": 5
+        },
+        "nondemented": {
+          "mean": 91.0,
+          "n": 8
+        }
+      }
+    }
+  },
+  "table3": {
+    "0": {
+      "age": [
+        75.9,
+        9.0,
+        60,
+        94
+      ],
+      "agree": {
+        "age": true,
+        "mmse": true,
+        "n": true,
+        "sex": true
+      },
+      "female": 72,
+      "male": 26,
+      "mmse": [
+        29.0,
+        1.2,
+        25,
+        30
+      ],
+      "mmse_missing": 0,
+      "n": 98,
+      "paper": {
+        "age": [
+          75.9,
+          9.0,
+          60,
+          94
+        ],
+        "female": 72,
+        "male": 26,
+        "mmse": [
+          29.0,
+          1.2,
+          25,
+          30
+        ],
+        "n": 98
+      }
+    },
+    "0.5": {
+      "age": [
+        76.2,
+        7.2,
+        62,
+        92
+      ],
+      "agree": {
+        "age": false,
+        "mmse": true,
+        "n": true,
+        "sex": true
+      },
+      "female": 39,
+      "male": 31,
+      "mmse": [
+        25.6,
+        3.5,
+        14,
+        30
+      ],
+      "mmse_missing": 0,
+      "n": 70,
+      "paper": {
+        "age": [
+          76.4,
+          7.0,
+          63,
+          92
+        ],
+        "female": 39,
+        "male": 31,
+        "mmse": [
+          25.6,
+          3.5,
+          14,
+          30
+        ],
+        "n": 70
+      }
+    },
+    "1": {
+      "age": [
+        77.8,
+        7.0,
+        65,
+        96
+      ],
+      "agree": {
+        "age": false,
+        "mmse": true,
+        "n": true,
+        "sex": true
+      },
+      "female": 19,
+      "male": 9,
+      "mmse": [
+        21.7,
+        3.8,
+        15,
+        29
+      ],
+      "mmse_missing": 0,
+      "n": 28,
+      "paper": {
+        "age": [
+          77.2,
+          7.5,
+          62,
+          96
+        ],
+        "female": 19,
+        "male": 9,
+        "mmse": [
+          21.7,
+          3.8,
+          15,
+          29
+        ],
+        "n": 28
+      }
+    },
+    "2": {
+      "age": [
+        82,
+        5.7,
+        78,
+        86
+      ],
+      "agree": {
+        "age": true,
+        "mmse": true,
+        "n": true,
+        "sex": true
+      },
+      "female": 1,
+      "male": 1,
+      "mmse": [
+        15,
+        0.0,
+        15,
+        15
+      ],
+      "mmse_missing": 0,
+      "n": 2,
+      "paper": {
+        "age": [
+          82.0,
+          5.7,
+          78,
+          86
+        ],
+        "female": 1,
+        "male": 1,
+        "mmse": [
+          15.0,
+          0.0,
+          15,
+          15
+        ],
+        "n": 2
+      }
+    }
+  },
+  "txt_vs_documentation_sessions_disagreeing": {},
+  "unexpected_archive_members": 0
+}

@@ -1,0 +1,9 @@
+source,system,definition,paper,reproduced,delta,pass
+saved paper OOF,C,spec §7 (seed-averaged probabilities),0.744,0.7415,-0.0025,True
+saved paper OOF,C,paper-style (mean of per-seed),0.744,0.7435,-0.0005,True
+saved paper OOF,F-KAN,spec §7 (seed-averaged probabilities),0.756,0.7627,0.0067,True
+saved paper OOF,F-KAN,paper-style (mean of per-seed),0.756,0.7562,0.0002,True
+experiment code,C,spec §7 (seed-averaged probabilities),0.744,0.7415,-0.0025,True
+experiment code,C,paper-style (mean of per-seed),0.744,0.7435,-0.0005,True
+experiment code,F-KAN,spec §7 (seed-averaged probabilities),0.756,0.7627,0.0067,True
+experiment code,F-KAN,paper-style (mean of per-seed),0.756,0.7562,0.0002,True

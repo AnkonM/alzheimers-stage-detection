@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Multimodal four-stage Alzheimer's disease staging from clinical data and T1 MRI"
+type: software
+authors:
+  - family-names: Mukherjee
+    given-names: Ankon
+  - family-names: Shaikh
+    given-names: Affan
+  - family-names: Kane
+    given-names: Eshani
+  - family-names: Banerjee
+    given-names: Aneeket
+repository-code: "https://github.com/AnkonM/alzheimers-stage-detection"
+license: MIT
+date-released: "2026-11-20"
+keywords:
+  - Alzheimer's disease
+  - ADNI
+  - OASIS-1
+  - Kolmogorov-Arnold network
+  - multimodal fusion

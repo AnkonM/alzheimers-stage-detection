@@ -1,0 +1,1278 @@
+{
+  "$defs": {
+    "ADResult": {
+      "additionalProperties": false,
+      "properties": {
+        "model_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Model Probability",
+          "type": "number"
+        },
+        "source": {
+          "enum": [
+            "KAN_ADD_HEAD",
+            "MRI_SPECIALIST",
+            "ALZ_ONLY"
+          ],
+          "title": "Source",
+          "type": "string"
+        },
+        "alz": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alz"
+        }
+      },
+      "required": [
+        "model_probability",
+        "source",
+        "alz"
+      ],
+      "title": "ADResult",
+      "type": "object"
+    },
+    "Ambiguity": {
+      "additionalProperties": false,
+      "properties": {
+        "flag": {
+          "title": "Flag",
+          "type": "boolean"
+        },
+        "top2": {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "enum": [
+                "CN",
+                "EMCI",
+                "LMCI",
+                "AD"
+              ],
+              "type": "string"
+            },
+            {
+              "enum": [
+                "CN",
+                "EMCI",
+                "LMCI",
+                "AD"
+              ],
+              "type": "string"
+            }
+          ],
+          "title": "Top2",
+          "type": "array"
+        },
+        "margin": {
+          "title": "Margin",
+          "type": "number"
+        },
+        "rule": {
+          "title": "Rule",
+          "type": "string"
+        }
+      },
+      "required": [
+        "flag",
+        "top2",
+        "margin",
+        "rule"
+      ],
+      "title": "Ambiguity",
+      "type": "object"
+    },
+    "Artifact": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "sha256": {
+          "title": "Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "sha256"
+      ],
+      "title": "Artifact",
+      "type": "object"
+    },
+    "BrainAge": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "reliable",
+            "unreliable",
+            "not_available"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "age_at_scan": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Age At Scan"
+        },
+        "predicted": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Predicted"
+        },
+        "raw_gap": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw Gap"
+        },
+        "corrected_gap": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Corrected Gap"
+        },
+        "extreme": {
+          "default": false,
+          "title": "Extreme",
+          "type": "boolean"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "status",
+        "age_at_scan",
+        "predicted",
+        "raw_gap",
+        "corrected_gap",
+        "extreme",
+        "note"
+      ],
+      "title": "BrainAge",
+      "type": "object"
+    },
+    "CNNPanel": {
+      "additionalProperties": false,
+      "description": "Technical view only. Both pre-registered sanity checks FAIL, so no anatomical claim is made.",
+      "properties": {
+        "layer": {
+          "default": "layer1 LayerCAM",
+          "title": "Layer",
+          "type": "string"
+        },
+        "n_models": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "N Models"
+        },
+        "overlay_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overlay File"
+        },
+        "sanity_cascade": {
+          "default": "FAIL",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ],
+          "title": "Sanity Cascade",
+          "type": "string"
+        },
+        "sanity_deletion": {
+          "default": "FAIL",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ],
+          "title": "Sanity Deletion",
+          "type": "string"
+        },
+        "regions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/RegionDensity"
+          },
+          "title": "Regions",
+          "type": "array"
+        },
+        "wording": {
+          "default": "attribution density, not evidence of disease location",
+          "title": "Wording",
+          "type": "string"
+        }
+      },
+      "required": [
+        "layer",
+        "n_models",
+        "overlay_file",
+        "sanity_cascade",
+        "sanity_deletion",
+        "regions",
+        "wording"
+      ],
+      "title": "CNNPanel",
+      "type": "object"
+    },
+    "Caveat": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ],
+      "title": "Caveat",
+      "type": "object"
+    },
+    "Completeness": {
+      "additionalProperties": false,
+      "properties": {
+        "clinical": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/InputItem"
+          },
+          "title": "Clinical",
+          "type": "array"
+        },
+        "mri_provided": {
+          "title": "Mri Provided",
+          "type": "boolean"
+        },
+        "n_clinical_imputed": {
+          "default": 0,
+          "title": "N Clinical Imputed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "clinical",
+        "mri_provided",
+        "n_clinical_imputed"
+      ],
+      "title": "Completeness",
+      "type": "object"
+    },
+    "Driver": {
+      "additionalProperties": false,
+      "properties": {
+        "feature": {
+          "title": "Feature",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value"
+        },
+        "shap": {
+          "title": "Shap",
+          "type": "number"
+        },
+        "imputed": {
+          "default": false,
+          "title": "Imputed",
+          "type": "boolean"
+        },
+        "per_stage_ranges": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "$ref": "#/$defs/StageRange"
+              },
+              "propertyNames": {
+                "enum": [
+                  "CN",
+                  "EMCI",
+                  "LMCI",
+                  "AD"
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Per Stage Ranges"
+        }
+      },
+      "required": [
+        "feature",
+        "label",
+        "value",
+        "shap",
+        "imputed",
+        "per_stage_ranges"
+      ],
+      "title": "Driver",
+      "type": "object"
+    },
+    "Drivers": {
+      "additionalProperties": false,
+      "properties": {
+        "clinical_target": {
+          "anyOf": [
+            {
+              "enum": [
+                "CN",
+                "EMCI",
+                "LMCI",
+                "AD"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clinical Target"
+        },
+        "mri_target": {
+          "anyOf": [
+            {
+              "enum": [
+                "CN",
+                "EMCI",
+                "LMCI",
+                "AD"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mri Target"
+        },
+        "stream_level": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/StreamContribution"
+          },
+          "title": "Stream Level",
+          "type": "array"
+        },
+        "clinical": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Driver"
+          },
+          "title": "Clinical",
+          "type": "array"
+        },
+        "clinical_validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Validation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "mri": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Driver"
+          },
+          "title": "Mri",
+          "type": "array"
+        },
+        "mri_validation": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Validation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "clinical_target",
+        "mri_target",
+        "stream_level",
+        "clinical",
+        "clinical_validation",
+        "mri",
+        "mri_validation"
+      ],
+      "title": "Drivers",
+      "type": "object"
+    },
+    "Flag": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "enum": [
+            "discordance",
+            "fusion_changed_stage",
+            "mri_changed_stage",
+            "ambiguous"
+          ],
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text"
+      ],
+      "title": "Flag",
+      "type": "object"
+    },
+    "InputItem": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "provided",
+            "imputed",
+            "missing"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "field",
+        "state",
+        "value",
+        "note"
+      ],
+      "title": "InputItem",
+      "type": "object"
+    },
+    "Meta": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "default": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "report_id": {
+          "title": "Report Id",
+          "type": "string"
+        },
+        "created_at": {
+          "title": "Created At",
+          "type": "string"
+        },
+        "subject_label": {
+          "title": "Subject Label",
+          "type": "string"
+        },
+        "visit_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Visit Label"
+        },
+        "mode": {
+          "enum": [
+            "FULL",
+            "CLINICAL_ONLY",
+            "MRI_ONLY"
+          ],
+          "title": "Mode",
+          "type": "string"
+        },
+        "mode_label": {
+          "title": "Mode Label",
+          "type": "string"
+        },
+        "requested_mode": {
+          "enum": [
+            "FULL",
+            "CLINICAL_ONLY",
+            "MRI_ONLY"
+          ],
+          "title": "Requested Mode",
+          "type": "string"
+        },
+        "system_version": {
+          "default": "fusion-v3",
+          "title": "System Version",
+          "type": "string"
+        },
+        "code_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Code Version"
+        },
+        "artifacts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Artifact"
+          },
+          "title": "Artifacts",
+          "type": "array"
+        },
+        "input_provenance": {
+          "enum": [
+            "adni_demo",
+            "new_upload"
+          ],
+          "title": "Input Provenance",
+          "type": "string"
+        },
+        "reference_population": {
+          "$ref": "#/$defs/ReferencePopulation",
+          "default": {
+            "description": "ADNI training subjects (train split only)",
+            "n": 569,
+            "volume_percentiles": "pooled CN-train, not age/sex-adjusted",
+            "per_stage_ranges": "p25/p50/p75 by true stage, train split only"
+          }
+        },
+        "volume_provider": {
+          "default": "none",
+          "enum": [
+            "adni_fs",
+            "synthseg",
+            "none"
+          ],
+          "title": "Volume Provider",
+          "type": "string"
+        },
+        "volume_agreement": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume Agreement"
+        },
+        "runtime_s": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Runtime S"
+        },
+        "has_brain_image": {
+          "default": false,
+          "title": "Has Brain Image",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "schema_version",
+        "report_id",
+        "created_at",
+        "subject_label",
+        "visit_label",
+        "mode",
+        "mode_label",
+        "requested_mode",
+        "system_version",
+        "code_version",
+        "artifacts",
+        "input_provenance",
+        "reference_population",
+        "volume_provider",
+        "volume_agreement",
+        "runtime_s",
+        "has_brain_image"
+      ],
+      "title": "Meta",
+      "type": "object"
+    },
+    "QC": {
+      "additionalProperties": false,
+      "properties": {
+        "gates": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/QCGate"
+          },
+          "title": "Gates",
+          "type": "array"
+        },
+        "overall": {
+          "default": "PASS",
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ],
+          "title": "Overall",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gates",
+        "overall"
+      ],
+      "title": "QC",
+      "type": "object"
+    },
+    "QCGate": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "threshold": {
+          "title": "Threshold",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "WARN",
+            "FAIL"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "threshold",
+        "status",
+        "note"
+      ],
+      "title": "QCGate",
+      "type": "object"
+    },
+    "ReferencePopulation": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "default": "ADNI training subjects (train split only)",
+          "title": "Description",
+          "type": "string"
+        },
+        "n": {
+          "default": 569,
+          "title": "N",
+          "type": "integer"
+        },
+        "volume_percentiles": {
+          "default": "pooled CN-train, not age/sex-adjusted",
+          "title": "Volume Percentiles",
+          "type": "string"
+        },
+        "per_stage_ranges": {
+          "default": "p25/p50/p75 by true stage, train split only",
+          "title": "Per Stage Ranges",
+          "type": "string"
+        }
+      },
+      "required": [
+        "description",
+        "n",
+        "volume_percentiles",
+        "per_stage_ranges"
+      ],
+      "title": "ReferencePopulation",
+      "type": "object"
+    },
+    "RegionDensity": {
+      "additionalProperties": false,
+      "properties": {
+        "region": {
+          "title": "Region",
+          "type": "string"
+        },
+        "density": {
+          "title": "Density",
+          "type": "number"
+        },
+        "ad_minus_cn": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ad Minus Cn"
+        }
+      },
+      "required": [
+        "region",
+        "density",
+        "ad_minus_cn"
+      ],
+      "title": "RegionDensity",
+      "type": "object"
+    },
+    "Severity": {
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "maximum": 3,
+          "minimum": 0,
+          "title": "Value",
+          "type": "number"
+        },
+        "range": {
+          "default": [
+            0.0,
+            3.0
+          ],
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Range",
+          "type": "array"
+        },
+        "stage_means": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "number"
+              },
+              "propertyNames": {
+                "enum": [
+                  "CN",
+                  "EMCI",
+                  "LMCI",
+                  "AD"
+                ]
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Stage Means"
+        }
+      },
+      "required": [
+        "value",
+        "range",
+        "stage_means"
+      ],
+      "title": "Severity",
+      "type": "object"
+    },
+    "StageRange": {
+      "additionalProperties": false,
+      "properties": {
+        "p25": {
+          "title": "P25",
+          "type": "number"
+        },
+        "p50": {
+          "title": "P50",
+          "type": "number"
+        },
+        "p75": {
+          "title": "P75",
+          "type": "number"
+        }
+      },
+      "required": [
+        "p25",
+        "p50",
+        "p75"
+      ],
+      "title": "StageRange",
+      "type": "object"
+    },
+    "StageResult": {
+      "additionalProperties": false,
+      "properties": {
+        "model_probability": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "propertyNames": {
+            "enum": [
+              "CN",
+              "EMCI",
+              "LMCI",
+              "AD"
+            ]
+          },
+          "title": "Model Probability",
+          "type": "object"
+        },
+        "predicted": {
+          "enum": [
+            "CN",
+            "EMCI",
+            "LMCI",
+            "AD"
+          ],
+          "title": "Predicted",
+          "type": "string"
+        },
+        "clinical_predicted": {
+          "anyOf": [
+            {
+              "enum": [
+                "CN",
+                "EMCI",
+                "LMCI",
+                "AD"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Clinical Predicted"
+        },
+        "severity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Severity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "ambiguity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ambiguity"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "model_probability",
+        "predicted",
+        "clinical_predicted",
+        "severity",
+        "ambiguity"
+      ],
+      "title": "StageResult",
+      "type": "object"
+    },
+    "StreamContribution": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "title": "Group",
+          "type": "string"
+        },
+        "mean": {
+          "title": "Mean",
+          "type": "number"
+        },
+        "consistent": {
+          "title": "Consistent",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "group",
+        "mean",
+        "consistent"
+      ],
+      "title": "StreamContribution",
+      "type": "object"
+    },
+    "Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "VALIDATED",
+            "WEAK"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detail"
+        }
+      },
+      "required": [
+        "status",
+        "detail"
+      ],
+      "title": "Validation",
+      "type": "object"
+    },
+    "VolumeItem": {
+      "additionalProperties": false,
+      "properties": {
+        "structure": {
+          "title": "Structure",
+          "type": "string"
+        },
+        "ratio_to_icv": {
+          "title": "Ratio To Icv",
+          "type": "number"
+        },
+        "agreement": {
+          "default": "not_applicable",
+          "enum": [
+            "not_applicable",
+            "ok",
+            "low"
+          ],
+          "title": "Agreement",
+          "type": "string"
+        },
+        "display_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Display Note"
+        },
+        "percentile": {
+          "anyOf": [
+            {
+              "maximum": 100,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Percentile"
+        },
+        "percentile_basis": {
+          "default": "pooled CN-train (n=133), not age/sex-adjusted",
+          "title": "Percentile Basis",
+          "type": "string"
+        },
+        "pct_of_cn_median": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pct Of Cn Median"
+        }
+      },
+      "required": [
+        "structure",
+        "ratio_to_icv",
+        "agreement",
+        "display_note",
+        "percentile",
+        "percentile_basis",
+        "pct_of_cn_median"
+      ],
+      "title": "VolumeItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "$ref": "#/$defs/Meta"
+    },
+    "qc": {
+      "$ref": "#/$defs/QC"
+    },
+    "completeness": {
+      "$ref": "#/$defs/Completeness"
+    },
+    "stage": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/StageResult"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "ad": {
+      "$ref": "#/$defs/ADResult"
+    },
+    "brain_age": {
+      "$ref": "#/$defs/BrainAge"
+    },
+    "volumes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/VolumeItem"
+      },
+      "title": "Volumes",
+      "type": "array"
+    },
+    "drivers": {
+      "$ref": "#/$defs/Drivers",
+      "default": {
+        "clinical_target": null,
+        "mri_target": null,
+        "stream_level": [],
+        "clinical": [],
+        "clinical_validation": null,
+        "mri": [],
+        "mri_validation": null
+      }
+    },
+    "cnn": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/CNNPanel"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "flags": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Flag"
+      },
+      "title": "Flags",
+      "type": "array"
+    },
+    "caveats": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Caveat"
+      },
+      "title": "Caveats",
+      "type": "array"
+    },
+    "research_use_notice": {
+      "default": "Research use only. Not a diagnostic device.",
+      "title": "Research Use Notice",
+      "type": "string"
+    }
+  },
+  "required": [
+    "meta",
+    "qc",
+    "completeness",
+    "stage",
+    "ad",
+    "brain_age",
+    "volumes",
+    "drivers",
+    "cnn",
+    "flags",
+    "caveats",
+    "research_use_notice"
+  ],
+  "title": "AssessmentReport",
+  "type": "object"
+}

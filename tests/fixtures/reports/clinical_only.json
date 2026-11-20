@@ -1,0 +1,178 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "report_id": "clin_only",
+    "created_at": "2026-01-01T00:00:00Z",
+    "subject_label": "demo-clin_only",
+    "visit_label": null,
+    "mode": "CLINICAL_ONLY",
+    "mode_label": "fusion model run without scan inputs",
+    "requested_mode": "CLINICAL_ONLY",
+    "system_version": "fusion-v3",
+    "code_version": null,
+    "artifacts": [
+      {
+        "name": "kan_k2",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "input_provenance": "adni_demo",
+    "reference_population": {
+      "description": "ADNI training subjects (train split only)",
+      "n": 569,
+      "volume_percentiles": "pooled CN-train, not age/sex-adjusted",
+      "per_stage_ranges": "p25/p50/p75 by true stage, train split only"
+    },
+    "volume_provider": "none",
+    "volume_agreement": null,
+    "runtime_s": null,
+    "has_brain_image": false
+  },
+  "qc": {
+    "gates": [],
+    "overall": "PASS"
+  },
+  "completeness": {
+    "clinical": [
+      {
+        "field": "MMSE",
+        "state": "provided",
+        "value": 24.0,
+        "note": null
+      },
+      {
+        "field": "CDRSB",
+        "state": "provided",
+        "value": 3.5,
+        "note": null
+      },
+      {
+        "field": "ADAS13",
+        "state": "provided",
+        "value": 22.0,
+        "note": null
+      }
+    ],
+    "mri_provided": false,
+    "n_clinical_imputed": 0
+  },
+  "stage": {
+    "model_probability": {
+      "CN": 0.1,
+      "EMCI": 0.45,
+      "LMCI": 0.35,
+      "AD": 0.1
+    },
+    "predicted": "EMCI",
+    "clinical_predicted": "EMCI",
+    "severity": null,
+    "ambiguity": {
+      "flag": false,
+      "top2": [
+        "EMCI",
+        "LMCI"
+      ],
+      "margin": 0.4,
+      "rule": "adjacent top-2 and margin < 0.20"
+    }
+  },
+  "ad": {
+    "model_probability": 0.1,
+    "source": "KAN_ADD_HEAD",
+    "alz": null
+  },
+  "brain_age": {
+    "status": "not_available",
+    "age_at_scan": null,
+    "predicted": null,
+    "raw_gap": null,
+    "corrected_gap": null,
+    "extreme": false,
+    "note": null
+  },
+  "volumes": [],
+  "drivers": {
+    "clinical_target": null,
+    "mri_target": null,
+    "stream_level": [],
+    "clinical": [
+      {
+        "feature": "CDRSB",
+        "label": "CDR-SB",
+        "value": 3.5,
+        "shap": 0.9,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      },
+      {
+        "feature": "MMSE",
+        "label": "MMSE",
+        "value": 24.0,
+        "shap": 0.5,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      }
+    ],
+    "clinical_validation": {
+      "status": "WEAK",
+      "detail": "CDR-SB sign check failed (pre-registered)"
+    },
+    "mri": [],
+    "mri_validation": null
+  },
+  "cnn": null,
+  "flags": [],
+  "caveats": [
+    {
+      "id": "research_use",
+      "text": "Research use only. Not a diagnostic device."
+    },
+    {
+      "id": "no_severity",
+      "text": "Severity is not shown: this is the fusion model run without scan inputs."
+    }
+  ],
+  "research_use_notice": "Research use only. Not a diagnostic device."
+}

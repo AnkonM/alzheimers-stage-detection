@@ -1,0 +1,378 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "report_id": "cn",
+    "created_at": "2026-01-01T00:00:00Z",
+    "subject_label": "demo-cn",
+    "visit_label": null,
+    "mode": "FULL",
+    "mode_label": "fusion model with scan and clinical inputs",
+    "requested_mode": "FULL",
+    "system_version": "fusion-v3",
+    "code_version": null,
+    "artifacts": [
+      {
+        "name": "kan_k2",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "input_provenance": "adni_demo",
+    "reference_population": {
+      "description": "ADNI training subjects (train split only)",
+      "n": 569,
+      "volume_percentiles": "pooled CN-train, not age/sex-adjusted",
+      "per_stage_ranges": "p25/p50/p75 by true stage, train split only"
+    },
+    "volume_provider": "adni_fs",
+    "volume_agreement": null,
+    "runtime_s": null,
+    "has_brain_image": true
+  },
+  "qc": {
+    "gates": [
+      {
+        "name": "registration corr_vs_mni",
+        "value": 0.62,
+        "threshold": "PASS >= 0.30",
+        "status": "PASS",
+        "note": null
+      },
+      {
+        "name": "voxel size",
+        "value": "1.0x1.0x1.2 mm",
+        "threshold": "PASS 0.8-1.6 mm",
+        "status": "PASS",
+        "note": null
+      }
+    ],
+    "overall": "PASS"
+  },
+  "completeness": {
+    "clinical": [
+      {
+        "field": "MMSE",
+        "state": "provided",
+        "value": 24.0,
+        "note": null
+      },
+      {
+        "field": "CDRSB",
+        "state": "provided",
+        "value": 3.5,
+        "note": null
+      },
+      {
+        "field": "ADAS13",
+        "state": "provided",
+        "value": 22.0,
+        "note": null
+      }
+    ],
+    "mri_provided": true,
+    "n_clinical_imputed": 0
+  },
+  "stage": {
+    "model_probability": {
+      "CN": 0.78,
+      "EMCI": 0.15,
+      "LMCI": 0.05,
+      "AD": 0.02
+    },
+    "predicted": "CN",
+    "clinical_predicted": "CN",
+    "severity": {
+      "value": 0.31,
+      "range": [
+        0.0,
+        3.0
+      ],
+      "stage_means": {
+        "CN": 0.3,
+        "EMCI": 1.1,
+        "LMCI": 1.9,
+        "AD": 2.6
+      }
+    },
+    "ambiguity": {
+      "flag": false,
+      "top2": [
+        "CN",
+        "EMCI"
+      ],
+      "margin": 0.4,
+      "rule": "adjacent top-2 and margin < 0.20"
+    }
+  },
+  "ad": {
+    "model_probability": 0.02,
+    "source": "KAN_ADD_HEAD",
+    "alz": 0.08
+  },
+  "brain_age": {
+    "status": "reliable",
+    "age_at_scan": 74.0,
+    "predicted": 77.5,
+    "raw_gap": 3.5,
+    "corrected_gap": 4.1,
+    "extreme": false,
+    "note": null
+  },
+  "volumes": [
+    {
+      "structure": "Hippocampus",
+      "ratio_to_icv": 0.0041,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 22.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 88.0
+    },
+    {
+      "structure": "Ventricles",
+      "ratio_to_icv": 0.031,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 78.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 124.0
+    },
+    {
+      "structure": "WholeBrain",
+      "ratio_to_icv": 0.69,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 40.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 97.0
+    },
+    {
+      "structure": "Entorhinal",
+      "ratio_to_icv": 0.0021,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 30.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 91.0
+    },
+    {
+      "structure": "Fusiform",
+      "ratio_to_icv": 0.0112,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 35.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 95.0
+    },
+    {
+      "structure": "MidTemp",
+      "ratio_to_icv": 0.0125,
+      "agreement": "not_applicable",
+      "display_note": null,
+      "percentile": 33.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 93.0
+    }
+  ],
+  "drivers": {
+    "clinical_target": null,
+    "mri_target": null,
+    "stream_level": [
+      {
+        "group": "clinical specialist",
+        "mean": 1.2,
+        "consistent": true
+      },
+      {
+        "group": "MRI specialist",
+        "mean": 0.4,
+        "consistent": true
+      },
+      {
+        "group": "age",
+        "mean": -0.1,
+        "consistent": false
+      }
+    ],
+    "clinical": [
+      {
+        "feature": "CDRSB",
+        "label": "CDR-SB",
+        "value": 3.5,
+        "shap": 0.9,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      },
+      {
+        "feature": "MMSE",
+        "label": "MMSE",
+        "value": 24.0,
+        "shap": 0.5,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      }
+    ],
+    "clinical_validation": {
+      "status": "WEAK",
+      "detail": "CDR-SB sign check failed (pre-registered)"
+    },
+    "mri": [
+      {
+        "feature": "Hippocampus_ratio",
+        "label": "Hippocampal volume / ICV",
+        "value": 0.0041,
+        "shap": 0.3,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      }
+    ],
+    "mri_validation": {
+      "status": "VALIDATED",
+      "detail": null
+    }
+  },
+  "cnn": {
+    "layer": "layer1 LayerCAM",
+    "n_models": 15,
+    "overlay_file": "overlay.nii.gz",
+    "sanity_cascade": "FAIL",
+    "sanity_deletion": "FAIL",
+    "regions": [
+      {
+        "region": "hippocampus",
+        "density": 0.0833,
+        "ad_minus_cn": -0.006
+      },
+      {
+        "region": "amygdala",
+        "density": 0.0863,
+        "ad_minus_cn": -0.005
+      },
+      {
+        "region": "ventricles",
+        "density": 0.0893,
+        "ad_minus_cn": -0.004
+      },
+      {
+        "region": "thalamus",
+        "density": 0.0923,
+        "ad_minus_cn": -0.003
+      },
+      {
+        "region": "basal ganglia",
+        "density": 0.0953,
+        "ad_minus_cn": -0.002
+      },
+      {
+        "region": "cerebellum",
+        "density": 0.0983,
+        "ad_minus_cn": -0.001
+      },
+      {
+        "region": "brainstem",
+        "density": 0.1013,
+        "ad_minus_cn": 0.0
+      },
+      {
+        "region": "cerebral white matter",
+        "density": 0.1043,
+        "ad_minus_cn": 0.001
+      },
+      {
+        "region": "frontal lobe",
+        "density": 0.1073,
+        "ad_minus_cn": 0.002
+      },
+      {
+        "region": "temporal lobe",
+        "density": 0.1103,
+        "ad_minus_cn": 0.003
+      },
+      {
+        "region": "parietal lobe",
+        "density": 0.1133,
+        "ad_minus_cn": 0.004
+      },
+      {
+        "region": "occipital lobe",
+        "density": 0.1163,
+        "ad_minus_cn": 0.005
+      }
+    ],
+    "wording": "attribution density, not evidence of disease location"
+  },
+  "flags": [],
+  "caveats": [
+    {
+      "id": "research_use",
+      "text": "Research use only. Not a diagnostic device."
+    },
+    {
+      "id": "alz_batch_effect",
+      "text": "ALZ may differ from the published run by up to about 5e-5 because of GPU batch effects; the predicted stage is unaffected."
+    }
+  ],
+  "research_use_notice": "Research use only. Not a diagnostic device."
+}

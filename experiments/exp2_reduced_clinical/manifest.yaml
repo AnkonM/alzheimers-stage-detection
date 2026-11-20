@@ -1,0 +1,458 @@
+generated_by: code/make_manifest.py
+preregistration: PREREGISTRATION.md (commit de368a1)
+excluded_from_reduced_tiers:
+- ACTARM
+- ACTARMCD
+- ARM
+- ARMCD
+- ARM_CAT
+- CDGLOBAL
+- CDMEMORY
+- CDRSB
+- CogIndex
+- DIAGNOSIS
+- DX
+- DXCHANGE
+- DXCONTYP
+- DXCONV
+- DXCURREN
+- DXREV
+- DXSUM_CAT
+- DX_bl
+- Entorhinal
+- Fusiform
+- Hippocampus
+- ICV
+- LDELTOTL
+- LIMMTOTL
+- MMSE
+- MPACCTRAILSB
+- MidTemp
+- TRTA
+- TRTP
+- Ventricles
+- WholeBrain
+- label
+tiers:
+  T0:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    n_features: 3
+    top_k: 3
+    selection: none
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+    max_train_missingness: 0.0
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE, SEX, PTEDUCAT
+    kan_input_width: 12
+    fcb_width: 3 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: true
+  T1:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - FAQ
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    n_features: 18
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      FAQ: 0.0088
+      EcogPtMem: 0.0035
+      EcogPtLang: 0.0035
+      EcogPtVisspat: 0.0105
+      EcogPtPlan: 0.0053
+      EcogPtOrgan: 0.0299
+      EcogPtDivatt: 0.0141
+      EcogPtTotal: 0.0035
+      EcogSPMem: 0.0123
+      EcogSPLang: 0.0105
+      EcogSPVisspat: 0.0369
+      EcogSPPlan: 0.0193
+      EcogSPOrgan: 0.0492
+      EcogSPDivatt: 0.0334
+      EcogSPTotal: 0.0141
+    max_train_missingness: 0.0492
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE + in-fold SHAP top-3 non-AGE
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: true
+  T2:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - FAQ
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    - MOCA
+    n_features: 19
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      FAQ: 0.0088
+      EcogPtMem: 0.0035
+      EcogPtLang: 0.0035
+      EcogPtVisspat: 0.0105
+      EcogPtPlan: 0.0053
+      EcogPtOrgan: 0.0299
+      EcogPtDivatt: 0.0141
+      EcogPtTotal: 0.0035
+      EcogSPMem: 0.0123
+      EcogSPLang: 0.0105
+      EcogSPVisspat: 0.0369
+      EcogSPPlan: 0.0193
+      EcogSPOrgan: 0.0492
+      EcogSPDivatt: 0.0334
+      EcogSPTotal: 0.0141
+      MOCA: 0.0088
+    max_train_missingness: 0.0492
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE + in-fold SHAP top-3 non-AGE
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: true
+  T3:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - FAQ
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    - MOCA
+    - ADAS11
+    - ADAS13
+    - Q4SCORE
+    - RAVLT_immediate
+    - RAVLT_learning
+    - RAVLT_forgetting
+    - RAVLT_perc_forgetting
+    - TRABSCOR
+    n_features: 27
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      FAQ: 0.0088
+      EcogPtMem: 0.0035
+      EcogPtLang: 0.0035
+      EcogPtVisspat: 0.0105
+      EcogPtPlan: 0.0053
+      EcogPtOrgan: 0.0299
+      EcogPtDivatt: 0.0141
+      EcogPtTotal: 0.0035
+      EcogSPMem: 0.0123
+      EcogSPLang: 0.0105
+      EcogSPVisspat: 0.0369
+      EcogSPPlan: 0.0193
+      EcogSPOrgan: 0.0492
+      EcogSPDivatt: 0.0334
+      EcogSPTotal: 0.0141
+      MOCA: 0.0088
+      ADAS11: 0.007
+      ADAS13: 0.0123
+      Q4SCORE: 0.0053
+      RAVLT_immediate: 0.0053
+      RAVLT_learning: 0.0053
+      RAVLT_forgetting: 0.0053
+      RAVLT_perc_forgetting: 0.007
+      TRABSCOR: 0.0404
+    max_train_missingness: 0.0492
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE + in-fold SHAP top-3 non-AGE
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: true
+  Full-spec:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - APOE4
+    - CDRSB
+    - ADAS11
+    - ADAS13
+    - MMSE
+    - RAVLT_immediate
+    - RAVLT_learning
+    - RAVLT_forgetting
+    - RAVLT_perc_forgetting
+    - FAQ
+    - MOCA
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    - CogIndex
+    n_features: 29
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      APOE4: 0.0141
+      CDRSB: 0.0
+      ADAS11: 0.007
+      ADAS13: 0.0123
+      MMSE: 0.0
+      RAVLT_immediate: 0.0053
+      RAVLT_learning: 0.0053
+      RAVLT_forgetting: 0.0053
+      RAVLT_perc_forgetting: 0.007
+      FAQ: 0.0088
+      MOCA: 0.0088
+      EcogPtMem: 0.0035
+      EcogPtLang: 0.0035
+      EcogPtVisspat: 0.0105
+      EcogPtPlan: 0.0053
+      EcogPtOrgan: 0.0299
+      EcogPtDivatt: 0.0141
+      EcogPtTotal: 0.0035
+      EcogSPMem: 0.0123
+      EcogSPLang: 0.0105
+      EcogSPVisspat: 0.0369
+      EcogSPPlan: 0.0193
+      EcogSPOrgan: 0.0492
+      EcogSPDivatt: 0.0334
+      EcogSPTotal: 0.0141
+      CogIndex: 0.0123
+    max_train_missingness: 0.0492
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE + in-fold SHAP top-3 non-AGE
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: true
+  S-T2+APOE4:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - FAQ
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    - MOCA
+    - APOE4
+    n_features: 20
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: trainval_extra.parquet (raw step-1 values; in-fold step-4 rule)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      FAQ: 0.0088
+      EcogPtMem: 0.0035
+      EcogPtLang: 0.0035
+      EcogPtVisspat: 0.0105
+      EcogPtPlan: 0.0053
+      EcogPtOrgan: 0.0299
+      EcogPtDivatt: 0.0141
+      EcogPtTotal: 0.0035
+      EcogSPMem: 0.0123
+      EcogSPLang: 0.0105
+      EcogSPVisspat: 0.0369
+      EcogSPPlan: 0.0193
+      EcogSPOrgan: 0.0492
+      EcogSPDivatt: 0.0334
+      EcogSPTotal: 0.0141
+      MOCA: 0.0088
+      APOE4: 0.0141
+    max_train_missingness: 0.0492
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE + in-fold SHAP top-3 non-AGE
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: false
+  Full-paper:
+    columns:
+    - AGE
+    - PTGENDER
+    - PTEDUCAT
+    - APOE4
+    - CDRSB
+    - ADAS11
+    - ADAS13
+    - MMSE
+    - RAVLT_immediate
+    - RAVLT_learning
+    - RAVLT_forgetting
+    - RAVLT_perc_forgetting
+    - FAQ
+    - MOCA
+    - EcogPtMem
+    - EcogPtLang
+    - EcogPtVisspat
+    - EcogPtPlan
+    - EcogPtOrgan
+    - EcogPtDivatt
+    - EcogPtTotal
+    - EcogSPMem
+    - EcogSPLang
+    - EcogSPVisspat
+    - EcogSPPlan
+    - EcogSPOrgan
+    - EcogSPDivatt
+    - EcogSPTotal
+    - CogIndex
+    n_features: 29
+    top_k: 12
+    selection: in-fold mean |SHAP|
+    source: analysis/kan_fusion/fusion_trainval.csv (paper step-4 values, global train fit)
+    train_missingness:
+      AGE: 0.0
+      PTGENDER: 0.0
+      PTEDUCAT: 0.0
+      APOE4: 0.0
+      CDRSB: 0.0
+      ADAS11: 0.0
+      ADAS13: 0.0
+      MMSE: 0.0
+      RAVLT_immediate: 0.0
+      RAVLT_learning: 0.0
+      RAVLT_forgetting: 0.0
+      RAVLT_perc_forgetting: 0.0
+      FAQ: 0.0
+      MOCA: 0.0
+      EcogPtMem: 0.0
+      EcogPtLang: 0.0
+      EcogPtVisspat: 0.0
+      EcogPtPlan: 0.0
+      EcogPtOrgan: 0.0
+      EcogPtDivatt: 0.0
+      EcogPtTotal: 0.0
+      EcogSPMem: 0.0
+      EcogSPLang: 0.0
+      EcogSPVisspat: 0.0
+      EcogSPPlan: 0.0
+      EcogSPOrgan: 0.0
+      EcogSPDivatt: 0.0
+      EcogSPTotal: 0.0
+      CogIndex: 0.0
+    max_train_missingness: 0.0
+    subjects:
+      train: 569
+      val: 122
+    kan_extras: AGE, CDRSB, CogIndex, MMSE (fixed)
+    kan_input_width: 13
+    fcb_width: 12 (+1 if AGE not in top-K) + 9 MRI inputs
+    in_trend_R3: false
+mri_specialist:
+  inputs:
+  - Ventricles_ICV
+  - Hippocampus_ICV
+  - WholeBrain_ICV
+  - Entorhinal_ICV
+  - Fusiform_ICV
+  - MidTemp_ICV
+  - ALZ
+  - BAG
+  - AGE
+  - SEX
+  model: logreg C=0.1 (frozen)
+  subjects_with_scan:
+    train: 567
+    val: 121
+class_counts:
+  train:
+    CN: 133
+    EMCI: 217
+    LMCI: 114
+    AD: 105
+  val:
+    CN: 28
+    EMCI: 46
+    LMCI: 25
+    AD: 23

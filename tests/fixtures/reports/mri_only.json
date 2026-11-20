@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "schema_version": "1.0",
+    "report_id": "mri_only",
+    "created_at": "2026-01-01T00:00:00Z",
+    "subject_label": "demo-mri_only",
+    "visit_label": null,
+    "mode": "MRI_ONLY",
+    "mode_label": "MRI specialist only (AD probability; no stage)",
+    "requested_mode": "MRI_ONLY",
+    "system_version": "fusion-v3",
+    "code_version": null,
+    "artifacts": [
+      {
+        "name": "kan_k2",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "input_provenance": "new_upload",
+    "reference_population": {
+      "description": "ADNI training subjects (train split only)",
+      "n": 569,
+      "volume_percentiles": "pooled CN-train, not age/sex-adjusted",
+      "per_stage_ranges": "p25/p50/p75 by true stage, train split only"
+    },
+    "volume_provider": "synthseg",
+    "volume_agreement": "ICC(2,1) of SynthSeg vs training (FreeSurfer 5.1) volume/ICV ratios, n=25 train scans: Hippocampus 0.85, Ventricles 0.89, WholeBrain 0.52, Entorhinal 0.15, Fusiform 0.28, MidTemp 0.33",
+    "runtime_s": null,
+    "has_brain_image": true
+  },
+  "qc": {
+    "gates": [
+      {
+        "name": "volume agreement (SynthSeg)",
+        "value": "n=25 train scans: Hippocampus ICC 0.85, bias +9%; Ventricles ICC 0.89, bias +21%; WholeBrain ICC 0.52, bias +1%; Entorhinal ICC 0.15, bias +31%; Fusiform ICC 0.28, bias +3%; MidTemp ICC 0.33, bias -12%",
+        "threshold": "percentile shown only if ICC(2,1) >= 0.5 and |bias| <= 10%",
+        "status": "WARN",
+        "note": "SynthSeg volumes differ from the FreeSurfer 5.1 volumes the MRI specialist was trained on"
+      },
+      {
+        "name": "registration corr_vs_mni",
+        "value": 0.62,
+        "threshold": "PASS >= 0.30",
+        "status": "PASS",
+        "note": null
+      },
+      {
+        "name": "voxel size",
+        "value": "1.0x1.0x1.2 mm",
+        "threshold": "PASS 0.8-1.6 mm",
+        "status": "PASS",
+        "note": null
+      }
+    ],
+    "overall": "WARN"
+  },
+  "completeness": {
+    "clinical": [],
+    "mri_provided": true,
+    "n_clinical_imputed": 0
+  },
+  "stage": null,
+  "ad": {
+    "model_probability": 0.63,
+    "source": "MRI_SPECIALIST",
+    "alz": 0.7
+  },
+  "brain_age": {
+    "status": "reliable",
+    "age_at_scan": 74.0,
+    "predicted": 77.5,
+    "raw_gap": 3.5,
+    "corrected_gap": 4.1,
+    "extreme": false,
+    "note": null
+  },
+  "volumes": [
+    {
+      "structure": "Hippocampus",
+      "ratio_to_icv": 0.0041,
+      "agreement": "ok",
+      "display_note": null,
+      "percentile": 22.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 88.0
+    },
+    {
+      "structure": "Ventricles",
+      "ratio_to_icv": 0.031,
+      "agreement": "low",
+      "display_note": "low agreement with training volumes, no percentile",
+      "percentile": null,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": null
+    },
+    {
+      "structure": "WholeBrain",
+      "ratio_to_icv": 0.69,
+      "agreement": "ok",
+      "display_note": null,
+      "percentile": 40.0,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": 97.0
+    },
+    {
+      "structure": "Entorhinal",
+      "ratio_to_icv": 0.0021,
+      "agreement": "low",
+      "display_note": "low agreement with training volumes, no percentile",
+      "percentile": null,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": null
+    },
+    {
+      "structure": "Fusiform",
+      "ratio_to_icv": 0.0112,
+      "agreement": "low",
+      "display_note": "low agreement with training volumes, no percentile",
+      "percentile": null,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": null
+    },
+    {
+      "structure": "MidTemp",
+      "ratio_to_icv": 0.0125,
+      "agreement": "low",
+      "display_note": "low agreement with training volumes, no percentile",
+      "percentile": null,
+      "percentile_basis": "pooled CN-train (n=133), not age/sex-adjusted",
+      "pct_of_cn_median": null
+    }
+  ],
+  "drivers": {
+    "clinical_target": null,
+    "mri_target": null,
+    "stream_level": [],
+    "clinical": [],
+    "clinical_validation": {
+      "status": "WEAK",
+      "detail": "CDR-SB sign check failed (pre-registered)"
+    },
+    "mri": [
+      {
+        "feature": "Hippocampus_ratio",
+        "label": "Hippocampal volume / ICV",
+        "value": 0.0041,
+        "shap": 0.3,
+        "imputed": false,
+        "per_stage_ranges": {
+          "CN": {
+            "p25": 0.0,
+            "p50": 0.5,
+            "p75": 1.0
+          },
+          "EMCI": {
+            "p25": 0.5,
+            "p50": 1.0,
+            "p75": 2.0
+          },
+          "LMCI": {
+            "p25": 1.0,
+            "p50": 2.0,
+            "p75": 3.5
+          },
+          "AD": {
+            "p25": 3.0,
+            "p50": 4.5,
+            "p75": 6.0
+          }
+        }
+      }
+    ],
+    "mri_validation": {
+      "status": "VALIDATED",
+      "detail": null
+    }
+  },
+  "cnn": {
+    "layer": "layer1 LayerCAM",
+    "n_models": 15,
+    "overlay_file": "overlay.nii.gz",
+    "sanity_cascade": "FAIL",
+    "sanity_deletion": "FAIL",
+    "regions": [
+      {
+        "region": "hippocampus",
+        "density": 0.0833,
+        "ad_minus_cn": -0.006
+      },
+      {
+        "region": "amygdala",
+        "density": 0.0863,
+        "ad_minus_cn": -0.005
+      },
+      {
+        "region": "ventricles",
+        "density": 0.0893,
+        "ad_minus_cn": -0.004
+      },
+      {
+        "region": "thalamus",
+        "density": 0.0923,
+        "ad_minus_cn": -0.003
+      },
+      {
+        "region": "basal ganglia",
+        "density": 0.0953,
+        "ad_minus_cn": -0.002
+      },
+      {
+        "region": "cerebellum",
+        "density": 0.0983,
+        "ad_minus_cn": -0.001
+      },
+      {
+        "region": "brainstem",
+        "density": 0.1013,
+        "ad_minus_cn": 0.0
+      },
+      {
+        "region": "cerebral white matter",
+        "density": 0.1043,
+        "ad_minus_cn": 0.001
+      },
+      {
+        "region": "frontal lobe",
+        "density": 0.1073,
+        "ad_minus_cn": 0.002
+      },
+      {
+        "region": "temporal lobe",
+        "density": 0.1103,
+        "ad_minus_cn": 0.003
+      },
+      {
+        "region": "parietal lobe",
+        "density": 0.1133,
+        "ad_minus_cn": 0.004
+      },
+      {
+        "region": "occipital lobe",
+        "density": 0.1163,
+        "ad_minus_cn": 0.005
+      }
+    ],
+    "wording": "attribution density, not evidence of disease location"
+  },
+  "flags": [],
+  "caveats": [
+    {
+      "id": "research_use",
+      "text": "Research use only. Not a diagnostic device."
+    },
+    {
+      "id": "alz_batch_effect",
+      "text": "ALZ may differ from the published run by up to about 5e-5 because of GPU batch effects; the predicted stage is unaffected."
+    },
+    {
+      "id": "domain_shift",
+      "text": "Model trained on ADNI-processed scans; other scanners and protocols are a domain shift."
+    },
+    {
+      "id": "volume_provider",
+      "text": "Volumes from SynthSeg, not the FreeSurfer 5.1 volumes the MRI specialist was trained on. Agreement with training volumes: ICC(2,1) of SynthSeg vs training (FreeSurfer 5.1) volume/ICV ratios, n=25 train scans: Hippocampus 0.85, Ventricles 0.89, WholeBrain 0.52, Entorhinal 0.15, Fusiform 0.28, MidTemp 0.33."
+    },
+    {
+      "id": "volume_unreliable",
+      "text": "Agreement is low for Entorhinal, Fusiform, MidTemp (ICC(2,1) below 0.5): the MRI-specialist contribution may be unreliable for this scan."
+    }
+  ],
+  "research_use_notice": "Research use only. Not a diagnostic device."
+}

@@ -1,0 +1,147 @@
+{
+  "_notice": "OASIS_RESULTS_MARKER: Data were provided by OASIS-1: Cross-Sectional: Principal Investigators: D. Marcus, R. Buckner, J. Csernansky, J. Morris; P50 AG05681, P01 AG03991, P01 AG026276, R01 AG021910, P20 MH071616, U24 RR021382. Citation: Marcus et al., J Cogn Neurosci 2007;19(9):1498-1507, https://doi.org/10.1162/jocn.2007.19.9.1498",
+  "decision": {
+    "outcome": "stop",
+    "proposed_convention": null,
+    "reason": "E3 is uninformative and E-geo gives no absolute convention"
+  },
+  "e1": {
+    "after_m1_orientation_step": {
+      "neurological": {
+        "array_axis_left_right": 2,
+        "array_shape": [
+          256,
+          256,
+          133
+        ],
+        "marker_array_position": [
+          100.0,
+          195.0,
+          104.0
+        ],
+        "marker_side": "R"
+      },
+      "radiological": {
+        "array_axis_left_right": 2,
+        "array_shape": [
+          256,
+          256,
+          133
+        ],
+        "marker_array_position": [
+          100.0,
+          195.0,
+          28.0
+        ],
+        "marker_side": "L"
+      }
+    },
+    "checks": {
+      "after the m1 step the conventions differ only along the left-right array axis (mirror within 1 voxel)": true,
+      "nibabel and ITK agree on the loader NIfTI (axes and marker side), both conventions": true,
+      "the two conventions put the marker on opposite sides after the m1 orientation step": true
+    },
+    "consistent": true,
+    "readers": {
+      "ITK (ants.image_read), .hdr read directly": {
+        "axes_increase_toward": [
+          "L",
+          "P",
+          "S"
+        ],
+        "marker_side": "R"
+      },
+      "loader NIfTI (neurological), ITK": {
+        "axes_increase_toward": [
+          "A",
+          "S",
+          "R"
+        ],
+        "marker_side": "R"
+      },
+      "loader NIfTI (neurological), nibabel": {
+        "axes_increase_toward": [
+          "A",
+          "S",
+          "R"
+        ],
+        "marker_side": "R"
+      },
+      "loader NIfTI (radiological), ITK": {
+        "axes_increase_toward": [
+          "A",
+          "S",
+          "L"
+        ],
+        "marker_side": "L"
+      },
+      "loader NIfTI (radiological), nibabel": {
+        "axes_increase_toward": [
+          "A",
+          "S",
+          "L"
+        ],
+        "marker_side": "L"
+      },
+      "nibabel, .hdr read directly": {
+        "axes_increase_toward": [
+          "L",
+          "A",
+          "S"
+        ],
+        "marker_side": "R"
+      }
+    }
+  },
+  "e3": {
+    "oasis_scans": "not run",
+    "template_and_control": {
+      "control": {
+        "n": 20,
+        "n_favouring_correct_orientation": 4,
+        "passes": false
+      },
+      "e3_informative": false,
+      "lr_axis": 2,
+      "plane_s": 95,
+      "plane_s_centre": 95,
+      "r_T": 0.9826873814929936,
+      "symmetric": false
+    }
+  },
+  "e_geo": {
+    "abs_determinant_range": [
+      0.7539,
+      1.0583
+    ],
+    "atlas_header": {
+      "orient code 0, dims 176x208x176x1, voxel 1x1x1x0": 20
+    },
+    "convention_read_from_it": "none",
+    "determinant_sign_counts": {
+      "+": 20
+    },
+    "documented_basis": "no",
+    "last_row_0001": 20,
+    "min_row_dominance_over_sessions": 0.651,
+    "n_sessions": 20,
+    "orientation_like_lines_in_xml_txt_masked": {
+      "<xnat:flip>#</xnat:flip>": 77,
+      "<xnat:orientation>Sag</xnat:orientation>": 77,
+      "Flip:         #": 77,
+      "HAND:         Right": 20,
+      "Orientation:  Sag": 77
+    },
+    "signed_permutation_patterns": {
+      "atlas_x<--raw_y,atlas_y<-+raw_z,atlas_z<--raw_x": 20
+    },
+    "transform_file_non_numeric_lines_masked": {
+      "$Id: <revision line> $": 20,
+      "<path>/nil-tools/imgreg_#dfp <path>/nil-tools/refdir/young#+#_atrophy_avg_# <path>/nil-t": 20,
+      "scale:      #": 19,
+      "scale:     #": 1,
+      "t#": 20
+    }
+  },
+  "stage": "B0"
+}

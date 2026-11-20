@@ -1,0 +1,205 @@
+# Assessment card demo
+
+This demo renders a one-subject assessment card, as HTML and PNG, for the
+frozen fusion-v3 system (freeze commit `8f351b6`). The card shows:
+
+- the predicted stage with its 4-class probabilities;
+- the AD probability;
+- the severity index;
+- clinical SHAP evidence;
+- MRI evidence:
+  - the MRI specialist and its own SHAP drivers;
+  - volumes against CN reference ranges;
+  - the CNN attribution (LayerCAM), labelled "not anatomically reliable";
+- brain age;
+- stage changes ("fusion changed the stage", "MRI changed the stage");
+- how the fusion changes the prediction (KAN Shapley values, consistent effects
+  only);
+- the exploratory discordance flag;
+- a validation status on every explanation panel.
+
+The explanation methods, rules and their evaluation come from the
+pre-registered explainability analysis (`analysis/explainability/`; see its
+`report.md`).
+
+**Research prototype, not for clinical use.**
+
+**The card data is not in git.** `demo/card_data/` and `demo/output/` hold
+DUA-restricted, subject-level ADNI data:
+- per-subject tables: IDs, diagnoses, scores, volumes and model outputs;
+- brain-slice and CNN attribution images.
+
+Both are git-ignored. Build them locally first; see "Regenerating card data"
+below. The notebook is committed with its outputs stripped. Do not commit an
+executed copy.
+
+## Run it (about 15 s, after regenerating the card data)
+
+```bash
+python3 -m venv .venv-demo          # once: numpy, pandas, matplotlib, jupyter, ipywidgets
+.venv-demo/bin/pip install numpy pandas matplotlib jupyter ipywidgets
+cd demo
+../.venv-demo/bin/jupyter nbconvert --to notebook --execute assessment_demo.ipynb --output-dir output
+# writes the executed copy to demo/output/ (git-ignored); or open the notebook in Jupyter and run all cells
+```
+
+On this machine the environment is `LYP/.venv-demo` (`../../.venv-demo` from the
+repo root).
+
+- **Paths:** the notebook finds the repo root from its working directory, and
+  uses no absolute paths.
+- **What it does:** it applies the showcase rule, renders the 8 showcase cards
+  and one test subject into `demo/output/`, and displays them.
+- **Other subjects:** set `SUBJECT` to any train, val or test PTID, or use the
+  picker in interactive Jupyter.
+- **From Python** (with `src/` on `sys.path`):
+  ```python
+  from card import CardData, render_card
+  data = CardData()
+  render_card(data, data.ptids[0], "demo/output")
+  ```
+
+## What it reads
+
+The notebook only reads `demo/card_data/`. It never fits or runs a model, and it
+computes no metric. That directory is written from the frozen artefacts by three
+scripts, which need the project environments and, for the CNN attribution, the MRI volumes:
+
+| Step | Command (from the repo root) | Output |
+|---|---|---|
+| 1 | `../../.venv-fusion/bin/python src/card/build_card_data.py` | `subjects.csv` (inputs, specialist outputs, brain age, flags, volumes), `clinical_shap.npz`, `mri_shap.npz` (MRI-specialist SHAP), `streams_all.npz`, `meta.json` |
+| 2 | `../../.venv-kan/bin/python src/card/build_kan_terms.py` | `kan_terms.npz` (final probabilities, ADD, KAN residual and edge terms), `kan_edges.json`, `kan_shapley.npz` (group Shapley values of the 25 KANs; MRI-masked prediction) |
+| 3 | `../../.venv-mri/bin/python src/card/build_cam.py` | `cam.npz` (LayerCAM at the chosen stage: fixed hippocampal slices, region densities; about 2 min on GPU) |
+
+The renderer also reads two committed aggregate files from
+`analysis/explainability/results/`:
+- `card_rules.json`: the chosen CNN stage, the named regions, the consistent
+  KAN cells and the stage-change statistics;
+- `eval_status.json`: the validation status of each explanation.
+
+**Steps 1 and 2 check themselves against the frozen run:** the val and test
+outputs must reproduce `analysis/fusion_v3/frozen_run/` (specialists < 1e-6,
+KAN < 1e-4).
+
+**Subjects:** cards cover all 814 subjects, train, val and test.
+- **Train and val** subjects are in the frozen system's training data, so their
+  outputs are in-sample, and the card says so.
+- **Test** outputs are those of the single frozen test run.
+
+## Card rules
+
+1. **Header:**
+   - subject ID, split and in-sample status;
+   - the true diagnosis (known for every ADNI subject here);
+   - whether a scan is available.
+2. **Outputs:**
+   - the final KAN fusion stage and its probabilities;
+   - the ADD-head AD probability;
+   - the severity index s = Σ k·p(k) on a 0–3 gauge, marked with the final
+     KAN's train-CV stage means.
+3. **Clinical evidence:**
+   - the top 6 SHAP contributions of the clinical specialist towards its own
+     predicted stage: CatBoost ShapValues in log-odds, averaged over 5 seeds,
+     with features outside a seed's top 12 counted as 0;
+   - shown as value, direction and magnitude;
+   - its inputs are cognitive, functional and demographic only.
+4. **MRI evidence:**
+   - the MRI specialist's stage probabilities and P(AD), and ALZ;
+   - **its own drivers first:** exact linear SHAP over its 10 inputs (6
+     volume ratios, ALZ, brain-age gap, age, sex) on the centred class score.
+     The card shows the 6 largest for its predicted class, then the 3 largest
+     for AD. The background is the train subjects with a scan, and imputed
+     inputs are marked;
+   - the six FreeSurfer volume/ICV ratios against CN-train P5 / P25 / P50 /
+     P75 / P95, with the subject's percentile;
+   - **then the CNN attribution:** LayerCAM of the ALZ logit, at the stage
+     chosen by the pre-registered deletion rule. The slices are fixed for every
+     subject and pass through the template hippocampus:
+     - **train** subjects use their own fold's 3 checkpoints, which never saw
+       them; **val and test** subjects use all 15;
+     - **no brain region is named.** The panel is labelled "not anatomically
+       reliable" and gives the reasons: both pre-registered sanity checks
+       fail, and the maps barely differ between AD and CN. This was decided
+       after the results (pre-registration Addendum 1, 2026-10-05). The region
+       tables are in `analysis/explainability/report.md`.
+5. **Brain age:**
+   - raw and corrected gap, with the frozen α and β;
+   - marked **unreliable** when the pre-registered reliability rule fires;
+   - "not available" with its reason (no scan, or registration check failed);
+   - an **"extreme value"** note when |corrected gap| ≥ 15 years. This
+     threshold was fixed in `build_card_data.py` before any card was rendered,
+     and it fires for 20 of the 814 subjects.
+6. **Stage changes:**
+   - **"Fusion changed the stage":** the final stage differs from the clinical
+     specialist's. The card gives that transition's out-of-fold training counts
+     (corrected / made wrong / wrong both times) when it occurred at least 10
+     times, and the overall net effect with a CI;
+   - **"MRI changed the stage":** the final stage differs from the stage the
+     system gives with the scan treated as missing. The card gives the held-out
+     validation result from the train-only KANs.
+7. **How the fusion changes the prediction:**
+   - clinical specialist probabilities vs final probabilities;
+   - the total KAN correction to each logit;
+   - exact Shapley values of the 25 KANs over four input groups (clinical
+     specialist; MRI specialist + scan flag; age; CDR-SB / CogIndex / MMSE),
+     for the predicted stage's final logit and for its KAN correction:
+     - a group is shown only where all 25 KANs agree in sign and
+       |value| ≥ 0.05; the others are named as inconsistent;
+     - cohort effects are shown only for cells consistent in all 25 KANs;
+   - the KAN edge curves are no longer drawn (see
+     `analysis/fusion_v3/kan_interp.md`).
+8. **Validation status:** every explanation panel (clinical SHAP, MRI SHAP, CNN
+   attribution, KAN Shapley) states VALIDATED or WEAK, from the pre-registered
+   evaluation (`analysis/explainability/results/eval_status.json`). WEAK lists
+   the checks that did not pass. The clinical panel also gives both CDR-SB
+   results: the pre-registered sign criterion (FAIL) and a post-hoc correlation
+   (`results/p5_posthoc_cdrsb.json`), labelled post-hoc.
+9. **Flags:** the discordance flag, labelled exploratory and not validated, using the
+   pre-registered train-only thresholds:
+   - clinical specialist predicts AD and ALZ < 0.2981; or
+   - it predicts CN/EMCI and ALZ > 0.8751.
+10. **Footer:** model and library versions, the freeze commit, the
+   explainability pre-registration commit, and "research
+   prototype, not for clinical use".
+
+## Showcase set
+
+**The rule** (`src/card/showcase.py`) was committed in `0c7074e`, before any card
+output existed:
+- **Source:** the val split, ordered by PTID; take the first subject in each
+  category below.
+- **Duplicates:** a subject already chosen is skipped.
+- **Empty categories** fall back to the train split.
+
+The notebook prints the selected subjects: category, ID, split, and whether the
+category fell back to train. This README does not list them, because they are
+subject-level data. One category does fall back to train: no val scan fails the
+brain-age reliability rule, so the unreliable-scan subject comes from train.
+
+Val and train predictions are in-sample for the frozen system.
+
+## Regenerating card data
+
+This needs local ADNI data, which is not in git:
+- the clinical tables under `dataset/`;
+- the preprocessed MRI volumes `dataset/mri_prep/vol96/`, for the CNN attribution;
+- the ALZ cross-fit checkpoints `analysis/fusion_feasibility/runs/fold*_s*/best.pt`;
+- the frozen fusion-v3 artefacts in `analysis/fusion_v3/frozen/` and
+  `frozen_run/`.
+
+On this machine the environments live in `LYP/`. Run from the repo root, in
+this order:
+
+```bash
+../../.venv-fusion/bin/python src/card/build_card_data.py      # ~5 s; writes subjects.csv, clinical_shap.npz, streams_all.npz, meta.json
+../../.venv-kan/bin/python    src/card/build_kan_terms.py      # ~5 s; needs streams_all.npz; writes kan_terms.npz, kan_edges.json
+../../.venv-mri/bin/python    src/card/build_cam.py            # ~2 min on GPU; writes cam.npz
+cd demo && ../../../.venv-demo/bin/jupyter nbconvert --to notebook --execute assessment_demo.ipynb --output-dir output
+```
+
+- **Self-checks:** steps 1 and 2 assert that their val and test outputs
+  reproduce `analysis/fusion_v3/frozen_run/`, and they fail if that is not the
+  case.
+- **Nothing is retrained**, and no metric is computed.
+- **Output:** `demo/card_data/` (about 14 MB) and the rendered cards in
+  `demo/output/`. Both stay local.

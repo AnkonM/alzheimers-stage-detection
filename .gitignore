@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+.venv*/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data and models are never committed (see DATA.md)
+dataset/
+var/
+demo_cases/
+demo/card_data/
+demo/output/
+adni_nifti/
+oasis_work/
+catboost_info/
+figures/out/
+analysis/fusion_v3/frozen/
+analysis/**/private/
+tests/parity/private/
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.ckpt
+*.cbm
+*.h5
+*.onnx
+*.nii
+*.nii.gz
+*.mgz
+*.dcm
+*.zip
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
